@@ -123,7 +123,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [dark, setDark] = useState(() => {
     const saved = localStorage.getItem("theme");
-    return saved ? saved === "dark" : true;
+    return saved ? saved === "dark" : false;
   });
 
   useEffect(() => {
@@ -142,8 +142,8 @@ export default function App() {
       <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
         <span className="nav-logo">JM</span>
         <div className="nav-links">
-          <a href="#about">About</a>
           <a href="#skills">Skills</a>
+          <a href="#about">About</a>
           <a href="#experience">Experience</a>
           <a href="#education">Education</a>
           <a href="#contact">Contact</a>
@@ -174,7 +174,7 @@ export default function App() {
           </p>
           <div className="hero-actions">
             <a href="mailto:macayananjoselin@gmail.com" className="btn btn-primary">📧 Contact Me</a>
-            <a href="#experience" className="btn btn-outline">View Experience ↓</a>
+            <a href="/joselin_macayanan_resume.pdf" download className="btn btn-outline">📄 Download Resume</a>
           </div>
           <div className="hero-socials">
             <a href="https://www.linkedin.com/in/joselin-macayanan-638b061a1" target="_blank" rel="noopener noreferrer" className="social-link">💼 LinkedIn</a>
