@@ -12,7 +12,7 @@ const skills = [
 const experience = [
   {
     company: "Bizmates Philippines Inc.",
-    role: "Senior SRE / Cloud Engineer",
+    role: "Senior Cloud Engineer",
     period: "June 2022 – Present",
     type: "Full-time",
     summary: "Leading cloud infrastructure and DevOps initiatives while contributing to full-stack development.",
@@ -53,7 +53,7 @@ const experience = [
   },
   {
     company: "YNS Philippines Inc.",
-    role: "Full Stack Software Engineer II / Technical Lead",
+    role: "Mid Software Engineer",
     period: "September 2019 – May 2022",
     type: "Full-time",
     summary: "Led multiple project teams, designed AWS infrastructure, and delivered 10+ production applications for Japanese clients.",
