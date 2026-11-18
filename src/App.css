@@ -712,3 +712,31 @@ a.nav-logo { text-decoration: none; }
 .career-arrow { margin-top: 38px; }
 /* Shift content up by up to 250px, using only spare vertical space so the buttons never get pushed off-screen */
 .summary { padding-bottom: clamp(0px, calc(100vh - 820px), 250px); }
+/* Certification badge directly under the name */
+.cert-standalone { width: 84px; margin: 0 auto 0.6rem; }
+.summary-desc { margin-bottom: 1.1rem; }
+.cert-standalone { width: 112px; margin: -0.2rem auto 0.5rem; }
+.summary h1 { margin-bottom: 0.4rem; }
+.summary-desc { margin-bottom: 0.9rem; }
+.career-logo { margin-bottom: 0.35rem; }
+.career-item { gap: 0.1rem; }
+
+/* ===== Mobile / tablet: buttons sit in the page flow, never over content ===== */
+@media (max-width: 1000px) {
+  .dash { height: auto; min-height: 0; overflow: visible; padding: 4.5rem 1.25rem 2rem; }
+  .summary { padding-bottom: 0; }
+  .hero-dock { position: static; margin-top: 1.75rem; width: 100%; max-width: 420px; }
+}
+@media (max-width: 640px) {
+  .summary .hero-avatar { width: 160px; height: 184px; }
+  .summary h1 { font-size: 1.9rem; }
+  .summary-desc { font-size: 0.9rem; }
+  .career { gap: 0.25rem; }
+  .career-arrow { height: 22px; margin: 0.35rem 0 0.6rem; }
+  .cta-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; width: 100%; }
+  .cta { flex: none; justify-content: center; height: 46px; padding: 0 0.9rem; font-size: 0.85rem; }
+  .cta-primary { grid-column: 1 / -1; }
+  .hero-dock .scroll-hint { margin-top: 0.4rem; }
+}
+.cta { white-space: nowrap; }
+@media (max-width: 640px) { .cta { font-size: 0.82rem; padding: 0 0.7rem; gap: 0.4rem; } .cta svg { width: 16px; height: 16px; } }

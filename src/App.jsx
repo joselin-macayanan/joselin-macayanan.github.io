@@ -2,12 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 const skills = [
-  { category: "Backend", icon: "🔧", items: ["PHP", "Laravel", "CakePHP", "FuelPHP", "Node.js", "Python", "GraphQL", "REST APIs"] },
-  { category: "Frontend", icon: "🎨", items: ["JavaScript", "Vue.js", "Nuxt.js", "React", "jQuery", "HTML/CSS"] },
-  { category: "Cloud & DevOps", icon: "☁️", items: ["AWS ECS/Fargate", "AWS RDS", "AWS S3", "AWS VPC", "AWS Route53", "AWS CloudFront", "AWS EC2", "AWS IAM", "AWS CodePipeline", "AWS Bedrock", "VPC Peering", "VPC Transit Gateway", "Terraform", "Docker", "Kubernetes (EKS)", "CI/CD", "Jenkins", "Git", "Linux Administration"] },
+  { category: "Cloud & Infrastructure", icon: "☁️", items: ["Amazon Web Services (AWS)", "Terraform", "Infrastructure as code (IaC)", "Docker", "Container Orchestration", "Kubernetes Administration", "Linux System Administration", "Cost Optimisation"] },
+  { category: "DevOps & CI/CD", icon: "🔁", items: ["Continuous Integration and Continuous Delivery (CI/CD)", "Jenkins", "GitHub"] },
+  { category: "AI & Automation", icon: "🤖", items: ["Agentic AI Development", "AI-Assisted Operations (AIOps)"] },
+  { category: "Frontend & Backend", icon: "🔧", items: ["JavaScript", "Vue.js", "Nuxt.js", "React", "jQuery", "HTML/CSS", "PHP", "Laravel", "CakePHP", "FuelPHP", "Node.js", "Python (Programming Language)", "GraphQL", "REST APIs"] },
   { category: "Databases", icon: "🗄️", items: ["MySQL", "PostgreSQL", "MongoDB", "Redis"] },
-  { category: "AI & Automation", icon: "🤖", items: ["Agentic AI Development", "LLM Integration", "OpenAI", "AWS Bedrock", "n8n"] },
-  { category: "Testing", icon: "🧪", items: ["Selenium", "Unit Testing", "Jmeter", "Postman"] },
 ];
 
 const experience = [
@@ -297,6 +296,9 @@ export default function App() {
       <main className="summary">
         <div className="hero-avatar"><img src="/my_pic.jpg" alt="Joselin T. Macayanan" /></div>
         <h1>Joselin T. Macayanan</h1>
+        <a className="cert-standalone" href={CREDLY} target="_blank" rel="noopener noreferrer" aria-label="AWS Certified Cloud Practitioner (CLF-C02) on Credly">
+          <img src="/aws-cloud-practitioner.png" alt="AWS Certified Cloud Practitioner CLF-C02" />
+        </a>
         <p className="summary-desc">
           I build and manage cloud infrastructure on cloud computing platforms while delivering full-stack web applications.
           8+ years shipping production systems across cloud, backend, and frontend.
@@ -316,9 +318,6 @@ export default function App() {
             </li>
           ))}
         </ol>
-        <a className="cert-standalone" href={CREDLY} target="_blank" rel="noopener noreferrer" aria-label="AWS Certified Cloud Practitioner (CLF-C02) on Credly">
-          <img src="/aws-cloud-practitioner.png" alt="AWS Certified Cloud Practitioner CLF-C02" />
-        </a>
       </main>
 
       <div className="hero-dock">
