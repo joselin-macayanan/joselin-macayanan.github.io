@@ -512,3 +512,203 @@ body {
   .stat-num { font-size: 1.3rem; }
   .contact-grid { grid-template-columns: 1fr; }
 }
+
+/* AWS certification badge */
+.cert-badge { display: block; width: 88px; height: 88px; margin: 1rem auto 0; }
+.cert-badge img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.2s ease; }
+.cert-badge:hover img { transform: scale(1.06); }
+@media (max-width: 640px) { .cert-badge { width: 72px; height: 72px; } }
+
+/* ===== SUMMARY SCREEN ===== */
+.dash { position: relative; height: 100vh; min-height: 640px; padding: 4.5rem 2rem 3rem; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.dash::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 45% at 50% 20%, var(--primary-soft), transparent 70%); }
+.nav { padding: 0.9rem 2rem; }
+.nav--scrolled { padding: 0.65rem 2rem; }
+.summary { position: relative; width: min(980px, 100%); text-align: center; display: flex; flex-direction: column; align-items: center; }
+.summary .hero-badge { margin-bottom: 1rem; }
+.summary .hero-avatar { width: 108px; height: 108px; margin: 0 auto 1rem; }
+.summary h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); margin-bottom: 0.9rem; }
+.summary .hero-roles-main { margin-bottom: 1rem; }
+.summary-desc { max-width: 600px; font-size: 0.98rem; color: var(--text-secondary); margin-bottom: 1.25rem; }
+.summary-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 1.75rem; }
+.summary-actions .btn { padding: 0.65rem 1.3rem; font-size: 0.86rem; }
+.summary-actions .social-link { padding: 0.55rem 1rem; }
+
+.summary-cards { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; text-align: left; }
+.mini-card {
+  display: flex; flex-direction: column; gap: 0.35rem; padding: 1rem 1.15rem;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm); transition: all 0.25s ease; text-decoration: none;
+}
+.mini-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.mini-card h3 { font-size: 0.92rem; color: var(--text-heading); font-weight: 700; line-height: 1.3; }
+.mini-role { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+.mini-card .timeline-period { align-self: flex-start; margin-top: auto; }
+.cert-card { align-items: center; justify-content: center; padding: 0.6rem; }
+.cert-card img { width: 100%; max-width: 88px; height: auto; display: block; }
+
+.scroll-hint {
+  position: absolute; left: 50%; bottom: 0.9rem; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 0.5rem; text-decoration: none;
+  color: var(--text-secondary); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.scroll-hint:hover { color: var(--accent); }
+.scroll-arrow { animation: bob 1.6s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+@media (max-width: 1000px) {
+  .dash { height: auto; min-height: 100vh; overflow: visible; padding: 5.5rem 1rem 4rem; }
+  .nav-links { display: none; }
+  .summary-cards { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) { .summary-cards { grid-template-columns: 1fr; } }
+.summary h1 { color: var(--text-heading); font-weight: 800; letter-spacing: -0.045em; line-height: 1.08; }
+a.nav-logo { text-decoration: none; }
+.cert-standalone { display: block; width: 84px; margin-top: 1.1rem; transition: transform 0.2s ease; }
+.cert-standalone:hover { transform: translateY(-3px) scale(1.04); }
+.cert-standalone img { width: 100%; height: auto; display: block; }
+.summary-cards { width: min(840px, 100%); }
+.cert-standalone { width: 72px; margin-top: 0.9rem; }
+.summary .hero-avatar { width: 96px; height: 96px; margin-bottom: 0.8rem; }
+.summary .hero-badge { margin-bottom: 0.8rem; }
+.summary-actions { margin-bottom: 1.4rem; }
+.dash { padding-bottom: 3.25rem; }
+.cert-standalone { width: 112px; margin-top: 0.8rem; }
+.summary .mini-card { padding: 0.85rem 1.1rem; gap: 0.25rem; }
+.summary-desc { margin-bottom: 1rem; }
+.summary-actions { margin-bottom: 1.1rem; }
+.scroll-hint { bottom: 0.5rem; }
+
+/* Career flow: oldest -> newest */
+.career { list-style: none; display: flex; align-items: flex-start; justify-content: center; gap: 0; width: min(900px, 100%); }
+.career-step { display: flex; align-items: flex-start; flex: 1; }
+.career-step:first-child { flex: 0 0 auto; width: calc((100% - 180px) / 3); }
+.career-step:not(:first-child) { flex: 0 0 auto; width: calc((100% - 180px) / 3 + 90px); }
+.career-arrow {
+  position: relative; flex: 0 0 90px; height: 2px; margin-top: 32px;
+  background: var(--gradient); border-radius: 2px;
+}
+.career-arrow::after {
+  content: ""; position: absolute; right: -3px; top: 50%; transform: translateY(-50%);
+  border-left: 9px solid #7c3aed; border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+}
+.career-item { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.2rem; padding: 0 0.25rem; }
+.career-logo {
+  width: 64px; height: 64px; border-radius: 14px; overflow: hidden; margin-bottom: 0.4rem;
+  background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  display: grid; place-items: center; transition: transform 0.2s, box-shadow 0.2s;
+}
+.career-item:hover .career-logo { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.career-logo img { width: 100%; height: 100%; object-fit: cover; }
+.career-name { font-size: 0.9rem; font-weight: 700; color: var(--text-heading); line-height: 1.25; }
+.career-role { font-size: 0.82rem; font-weight: 600; color: var(--accent); }
+.career-years { font-size: 0.74rem; color: var(--text-secondary); font-weight: 500; }
+.cert-standalone { width: 100px; margin-top: 1rem; }
+
+@media (max-width: 760px) {
+  .career { flex-direction: column; align-items: center; gap: 0.5rem; }
+  .career-step { flex-direction: column; align-items: center; }
+  .career-step, .career-step:first-child, .career-step:not(:first-child) { width: 100%; }
+  .career-arrow { flex: none; width: 2px; height: 28px; margin: 0 0 0.75rem; }
+  .career-arrow::after { right: auto; left: 50%; top: auto; bottom: -3px; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 9px solid #7c3aed; border-bottom: 0; }
+}
+
+/* CTA bar above the scroll hint */
+.cta-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1.1rem; }
+.cta {
+  display: inline-flex; align-items: center; gap: 0.55rem; height: 44px; padding: 0 1.35rem;
+  border-radius: 999px; font-size: 0.88rem; font-weight: 600; text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.cta svg { width: 18px; height: 18px; flex-shrink: 0; }
+.cta:hover { transform: translateY(-2px); }
+.cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.cta-primary { background: var(--gradient); color: #fff; box-shadow: 0 6px 20px rgba(99,102,241,0.35); }
+.cta-primary:hover { box-shadow: 0 10px 28px rgba(99,102,241,0.45); }
+.cta-secondary { background: var(--bg-card-solid); color: var(--text-heading); border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); }
+.cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.cta-icon { background: #0a66c2; color: #fff; box-shadow: 0 6px 18px rgba(10,102,194,0.3); }
+.cta-icon:hover { background: #0958a8; }
+.cert-standalone { width: 92px; margin-top: 0.9rem; }
+@media (max-width: 480px) { .cta { flex: 1 1 100%; justify-content: center; } }
+
+/* Scroll hint: in flow, right under the CTAs */
+.scroll-hint {
+  position: static; transform: none; margin-top: 0.9rem;
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem 0.45rem 1.1rem;
+  border-radius: 999px; background: var(--primary-soft); border: 1px solid var(--border-hover);
+  color: var(--accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; transition: background 0.2s, transform 0.2s;
+}
+.scroll-hint:hover { color: var(--accent); background: rgba(99,102,241,0.16); transform: translateY(2px); }
+.scroll-arrow { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--gradient); color: #fff; animation: bob 1.4s ease-in-out infinite; }
+.scroll-arrow svg { width: 14px; height: 14px; }
+.cta-bar { margin-top: 0.9rem; }
+@media (prefers-reduced-motion: reduce) { .scroll-arrow { animation: none; } }
+
+/* Hero: content centered, action dock pinned to the bottom of the first screen */
+.dash { flex-direction: column; justify-content: space-between; align-items: center; padding: 4.25rem 2rem 1.25rem; }
+.summary { flex: 1; justify-content: center; }
+.hero-dock {
+  position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  width: min(640px, 100%); padding: 0.9rem 1.25rem 0.75rem; margin-top: 0.75rem;
+  background: var(--nav-blur); backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow-md);
+}
+.hero-dock .cta-bar { margin-top: 0; }
+.hero-dock .scroll-hint {
+  margin-top: 0; padding: 0.3rem 0.4rem 0.3rem 0.9rem; background: none; border: none;
+  color: var(--text-secondary); font-size: 0.74rem;
+}
+.hero-dock .scroll-hint:hover { color: var(--accent); background: var(--primary-soft); }
+.cert-standalone { margin-top: 1rem; }
+
+@media (max-width: 1000px) {
+  .dash { padding: 5rem 1rem 1rem; }
+  .hero-dock { position: sticky; bottom: 0.75rem; margin-top: 1.5rem; }
+}
+.hero-dock { background: none; border: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0; }
+
+/* Bigger logos, more space between experience and certification */
+.career-logo { width: 84px; height: 84px; border-radius: 18px; margin-bottom: 0.5rem; }
+.career-arrow { margin-top: 42px; }
+.cert-standalone { width: 124px; margin-top: 2rem; }
+.summary .hero-avatar { width: 84px; height: 84px; margin-bottom: 0.6rem; }
+.summary h1 { margin-bottom: 0.7rem; }
+.summary .hero-roles-main { margin-bottom: 0.8rem; }
+.summary-desc { margin-bottom: 1.2rem; }
+@media (max-width: 760px) { .career-arrow { margin-top: 0; } }
+.dash { padding-top: 3.9rem; padding-bottom: 1rem; }
+.summary h1 { font-size: clamp(2rem, 4.4vw, 3rem); margin-bottom: 0.6rem; }
+.summary-desc { font-size: 0.94rem; line-height: 1.6; margin-bottom: 1rem; }
+.cert-standalone { margin-top: 1.75rem; margin-bottom: 1.25rem; }
+.summary .hero-avatar { width: 128px; height: 128px; margin-bottom: 0.8rem; }
+.summary .hero-avatar { width: 164px; height: 164px; padding: 5px; margin-bottom: 0.7rem; }
+.cert-standalone { margin-top: 1.4rem; margin-bottom: 0.9rem; }
+.cert-standalone { width: 116px; margin-top: 1.1rem; margin-bottom: 0.7rem; }
+.summary-desc { margin-bottom: 0.85rem; }
+.hero-dock { gap: 0.55rem; }
+.dash { padding-bottom: 0.9rem; }
+
+/* Rectangular photo with rounded edges; content shifted up */
+.summary .hero-avatar { width: 148px; height: 168px; padding: 4px; border-radius: 22px; margin-bottom: 0.7rem; }
+.summary .hero-avatar img { border-radius: 18px; object-position: center 20%; }
+.summary { justify-content: flex-start; }
+.dash { padding-top: 3.6rem; }
+.summary { justify-content: center; padding-bottom: 1.25rem; }
+.dash { padding-top: 4.6rem; }
+.summary .hero-avatar { width: 132px; height: 152px; }
+.summary { padding-bottom: 0; }
+.dash { padding-top: 4.4rem; }
+.summary .hero-avatar { width: 160px; height: 184px; border-radius: 24px; }
+.summary .hero-avatar img { border-radius: 20px; }
+.summary-desc { max-width: 760px; }
+.dash { padding-top: 4.2rem; }
+.summary .hero-avatar { width: 200px; height: 230px; border-radius: 26px; padding: 5px; margin-bottom: 0.6rem; }
+.summary .hero-avatar img { border-radius: 21px; }
+.dash { padding-top: 3.9rem; }
+.cert-standalone { width: 100px; margin-top: 0.9rem; margin-bottom: 0.5rem; }
+.career-logo { width: 76px; height: 76px; }
+.career-arrow { margin-top: 38px; }
+/* Shift content up by up to 250px, using only spare vertical space so the buttons never get pushed off-screen */
+.summary { padding-bottom: clamp(0px, calc(100vh - 820px), 250px); }

@@ -1,35 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
-function useInView(threshold = 0.1) {
-  const ref = useRef();
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, visible];
-}
-
-function Section({ children, className = "", id }) {
-  const [ref, visible] = useInView();
-  return (
-    <section ref={ref} id={id} className={`section ${className} ${visible ? "visible" : ""}`}>
-      {children}
-    </section>
-  );
-}
-
 const skills = [
-  { category: "Backend", icon: "🔧", items: ["PHP", "Laravel", "CakePHP", "Node.js", "Python", "GraphQL", "REST APIs"] },
+  { category: "Backend", icon: "🔧", items: ["PHP", "Laravel", "CakePHP", "FuelPHP", "Node.js", "Python", "GraphQL", "REST APIs"] },
   { category: "Frontend", icon: "🎨", items: ["JavaScript", "Vue.js", "Nuxt.js", "React", "jQuery", "HTML/CSS"] },
-  { category: "Cloud & DevOps", icon: "☁️", items: ["AWS ECS/Fargate", "AWS RDS", "AWS S3", "AWS VPC", "AWS Route53", "AWS CloudFront", "AWS EC2", "AWS IAM", "AWS CodePipeline", "AWS Bedrock", "VPC Peering", "VPC Transit Gateway", "Terraform", "Docker", "CI/CD", "Jenkins"] },
+  { category: "Cloud & DevOps", icon: "☁️", items: ["AWS ECS/Fargate", "AWS RDS", "AWS S3", "AWS VPC", "AWS Route53", "AWS CloudFront", "AWS EC2", "AWS IAM", "AWS CodePipeline", "AWS Bedrock", "VPC Peering", "VPC Transit Gateway", "Terraform", "Docker", "Kubernetes (EKS)", "CI/CD", "Jenkins", "Git", "Linux Administration"] },
   { category: "Databases", icon: "🗄️", items: ["MySQL", "PostgreSQL", "MongoDB", "Redis"] },
-  { category: "AI & Automation", icon: "🤖", items: ["OpenAI", "AWS Bedrock", "n8n"] },
+  { category: "AI & Automation", icon: "🤖", items: ["Agentic AI Development", "LLM Integration", "OpenAI", "AWS Bedrock", "n8n"] },
   { category: "Testing", icon: "🧪", items: ["Selenium", "Unit Testing", "Jmeter", "Postman"] },
 ];
 
@@ -42,14 +19,16 @@ const experience = [
     summary: "Leading cloud infrastructure and DevOps initiatives while contributing to full-stack development.",
     highlights: [
       "Led migration of 7 systems from legacy AWS to new Terraform-managed IaC environment",
-      "Designed AWS Cloud Architecture for infrastructure planning and managed cost optimization proposals",
-      "Architect and manage AWS ECS/Fargate infrastructure serving production workloads",
-      "Design and implement CI/CD pipelines and automated deployments",
-      "Provided DevOps operational and technical support for development teams",
-      "Integrated OpenAI and AWS Bedrock for AI-powered internal systems",
-      "Full-stack development with Laravel, VueJS, and Docker",
+      "Handled AWS cost analysis and prepared optimization proposals for company approval",
+      "Provisioned and managed AWS infrastructure with Terraform, including reusable Terraform modules for automation and standardization",
+      "Deployed and maintained AWS ECS/Fargate environments and Docker container setups",
+      "Designed and implemented CI/CD pipelines and server configurations for evolving business requirements",
+      "Performed Amazon RDS maintenance, performance tuning, and AWS resource monitoring",
+      "Participated in DevOps operations, monitoring, troubleshooting, and production support",
+      "Integrated AI solutions using OpenAI and AWS Bedrock",
+      "Full-stack development and enhancements with Laravel, FuelPHP, VueJS, and Docker",
     ],
-    tech: ["AWS", "Terraform", "Docker", "Laravel", "VueJS", "MySQL", "Redis", "MongoDB", "Jenkins", "OpenAI", "AWS Bedrock"],
+    tech: ["AWS", "Terraform", "Docker", "Laravel", "FuelPHP", "VueJS", "MySQL", "Redis", "MongoDB", "Jenkins", "Selenium", "n8n", "OpenAI", "AWS Bedrock"],
     projects: {
       "☁️ Cloud Engineering": [
         { name: "Zipan Admin Portal", scope: "Migrated infrastructure, domain (zero downtime), and database from legacy account to new IaC AWS environment" },
@@ -81,7 +60,9 @@ const experience = [
     summary: "Led multiple project teams, designed AWS infrastructure, and delivered 10+ production applications for Japanese clients.",
     highlights: [
       "Promoted to Technical Lead — mentored developers and led project delivery",
-      "Designed AWS infrastructure for production, staging, and test environments",
+      "Designed AWS infrastructure for production, staging, and test environments, and prepared AWS cost proposals approved by clients",
+      "Delivered automated testing with unit tests and Selenium; produced specifications, test cases, and Swagger docs",
+      "Contributed to server, database, and domain migrations",
       "Delivered 10+ production applications for Japanese enterprise clients",
       "Managed full project lifecycle from analysis to deployment and operations",
     ],
@@ -108,7 +89,7 @@ const experience = [
     },
   },
   {
-    company: "Anderson Group BP0, Inc.",
+    company: "Anderson Group BPO, Inc.",
     role: "Web Development Intern",
     period: "February – May 2018",
     type: "Internship",
@@ -119,101 +100,42 @@ const experience = [
   },
 ];
 
-export default function App() {
-  const [scrolled, setScrolled] = useState(false);
-  const [dark, setDark] = useState(() => {
-    const saved = localStorage.getItem("theme");
-    return saved ? saved === "dark" : false;
-  });
-
+function useInView(threshold = 0.1) {
+  const ref = useRef();
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, visible];
+}
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+function Section({ children, className = "", id }) {
+  const [ref, visible] = useInView();
   return (
-    <div className="portfolio">
-      <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
-        <span className="nav-logo">JM</span>
-        <div className="nav-links">
-          <a href="#skills">Skills</a>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#education">Education</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <button className="theme-toggle" onClick={() => setDark(!dark)} aria-label="Toggle theme">
-          {dark ? "☀️" : "🌙"}
-        </button>
-      </nav>
+    <section ref={ref} id={id} className={`section ${className} ${visible ? "visible" : ""}`}>
+      {children}
+    </section>
+  );
+}
 
-      {/* Hero - Recruiter sees name, title, and value prop immediately */}
-      <header className="hero">
-        <div className="hero-content">
-          <div className="hero-badge"><span className="pulse-dot" /> Open to Work</div>
-          <div className="hero-avatar">
-            <img src="/my_pic.jpg" alt="Joselin T. Macayanan" />
-          </div>
-          <h1>Joselin T. Macayanan</h1>
-          <div className="hero-roles-main">
-            <span className="role-chip role-primary">Site Reliability Engineer</span>
-            <span className="role-chip">Cloud Engineer</span>
-            <span className="role-chip">DevOps Engineer</span>
-            <span className="role-chip">Software Engineer</span>
-            <span className="role-chip">Technical Lead</span>
-          </div>
-          <p className="hero-desc">
-            I build and manage cloud infrastructure on AWS while delivering full-stack web applications.
-            6+ years shipping production systems across cloud, backend, and frontend.
-          </p>
-          <div className="hero-actions">
-            <a href="mailto:macayananjoselin@gmail.com" className="btn btn-primary">📧 Contact Me</a>
-            <a href="/joselin_macayanan_resume.pdf" download className="btn btn-outline">📄 Download Resume</a>
-          </div>
-          <div className="hero-socials">
-            <a href="https://www.linkedin.com/in/joselin-macayanan-638b061a1" target="_blank" rel="noopener noreferrer" className="social-link">💼 LinkedIn</a>
-            <a href="https://www.facebook.com/jonh.macayanan/" target="_blank" rel="noopener noreferrer" className="social-link">👤 Facebook</a>
-          </div>
-          <div className="hero-stats">
-            <div className="stat"><span className="stat-num">6+</span><span className="stat-label">Years Experience</span></div>
-            <div className="stat-divider" />
-            <div className="stat"><span className="stat-num">30+</span><span className="stat-label">Projects Delivered</span></div>
-            <div className="stat-divider" />
-            <div className="stat"><span className="stat-num">3</span><span className="stat-label">Companies</span></div>
-          </div>
-        </div>
-      </header>
+const LINKEDIN = "https://www.linkedin.com/in/joselin-macayanan-638b061a1";
+const CREDLY = "https://www.credly.com/badges/d1ba98b8-2d4b-4987-83f9-cf63557f3553";
+const EMAIL = "macayananjoselin@gmail.com";
 
-      {/* About - Quick scan of who this person is */}
-      <Section id="about" className="about">
-        <h2>About Me</h2>
-        <div className="about-grid">
-          <div className="about-text">
-            <p>
-              Senior SRE and Cloud Engineer based in Metro Manila, Philippines. I specialize in
-              designing AWS infrastructure, building CI/CD pipelines, and developing full-stack
-              web applications using Laravel, Vue.js, and React.
-            </p>
-            <p>
-              I bridge the gap between development and operations — equally comfortable writing
-              application code as I am managing Terraform infrastructure and Docker deployments.
-            </p>
-          </div>
-          <div className="about-details">
-            <div className="detail-item"><span className="detail-label">📍 Location</span><span>Muntinlupa, Metro Manila, Philippines</span></div>
-            <div className="detail-item"><span className="detail-label">📧 Email</span><a href="mailto:macayananjoselin@gmail.com">macayananjoselin@gmail.com</a></div>
-            <div className="detail-item"><span className="detail-label">📱 Phone</span><span>0906-927-9485</span></div>
-          </div>
-        </div>
-      </Section>
+const experienceSummary = [
+  { company: "Anderson Group BPO, Inc.", role: "Web Development Intern", period: "Feb – May 2018", logo: "/logos/anderson.jpg" },
+  { company: "YNS Philippines Inc.", role: "Mid Software Engineer", period: "Sep 2019 – May 2022", logo: "/logos/yns.png" },
+  { company: "Bizmates Philippines Inc.", role: "Senior Cloud Engineer", period: "Jun 2022 – Present", logo: "/logos/bizmates.png", logoZoom: 1.3 },
+];
 
-      {/* Skills - Grouped for quick scanning */}
+function FullDetails() {
+  return (
+    <>
       <Section id="skills" className="skills">
         <h2>Technical Skills</h2>
         <div className="skills-grid">
@@ -221,16 +143,14 @@ export default function App() {
             <div key={group.category} className="skill-card">
               <h3><span className="skill-icon">{group.icon}</span>{group.category}</h3>
               <div className="skill-items">
-                {group.items.map((item) => (
-                  <span key={item} className="skill-tag">{item}</span>
-                ))}
+                {group.items.map((item) => <span key={item} className="skill-tag">{item}</span>)}
               </div>
             </div>
           ))}
         </div>
+
       </Section>
 
-      {/* Experience - The most important section for recruiters */}
       <Section id="experience" className="experience">
         <h2>Work Experience</h2>
         <div className="timeline">
@@ -249,19 +169,16 @@ export default function App() {
                   </div>
                 </div>
                 <p className="timeline-summary">{job.summary}</p>
-
                 {job.highlights.length > 0 && (
                   <ul className="timeline-highlights">
                     {job.highlights.map((h, j) => <li key={j}>{h}</li>)}
                   </ul>
                 )}
-
                 {job.tech.length > 0 && (
                   <div className="timeline-tech">
                     {job.tech.map((t) => <span key={t} className="tech-badge">{t}</span>)}
                   </div>
                 )}
-
                 {job.projects && Object.keys(job.projects).length > 0 && (
                   <div className="projects-details">
                     {Object.entries(job.projects).map(([category, items]) => (
@@ -274,9 +191,6 @@ export default function App() {
                                 <div className="project-card-item">
                                   <span className="project-card-name">{p.name}</span>
                                   <span className="project-card-scope">{p.scope}</span>
-                                  {p.tech && <div className="project-card-tech">
-                                    {p.tech.map((t) => <span key={t} className="tech-badge">{t}</span>)}
-                                  </div>}
                                 </div>
                               )}
                             </li>
@@ -290,9 +204,9 @@ export default function App() {
             </div>
           ))}
         </div>
+
       </Section>
 
-      {/* Education */}
       <Section id="education" className="education">
         <h2>Education</h2>
         <div className="edu-list">
@@ -324,36 +238,114 @@ export default function App() {
         </div>
       </Section>
 
-      {/* Contact */}
       <Section id="contact" className="contact">
         <div className="contact-hero">
           <h2>Let's Work Together</h2>
           <p className="contact-desc">Have a project in mind or want to discuss an opportunity? I'm always open to connecting.</p>
-          <a href="mailto:macayananjoselin@gmail.com" className="btn btn-primary contact-cta">📧 macayananjoselin@gmail.com</a>
+          <a href={`mailto:${EMAIL}`} className="btn btn-primary contact-cta">📧 {EMAIL}</a>
         </div>
         <div className="contact-grid">
-          <a href="tel:09069279485" className="contact-card">
-            <span className="contact-icon">📱</span>
-            <span className="contact-value">0906-927-9485</span>
-          </a>
-          <a href="https://www.linkedin.com/in/joselin-macayanan-638b061a1" target="_blank" rel="noopener noreferrer" className="contact-card">
-            <span className="contact-icon">💼</span>
-            <span className="contact-value">LinkedIn</span>
-          </a>
-          <a href="https://www.facebook.com/jonh.macayanan/" target="_blank" rel="noopener noreferrer" className="contact-card">
-            <span className="contact-icon">👤</span>
-            <span className="contact-value">Facebook</span>
-          </a>
-          <div className="contact-card">
-            <span className="contact-icon">📍</span>
-            <span className="contact-value">Muntinlupa, Metro Manila</span>
-          </div>
+          <a href="tel:09069279485" className="contact-card"><span className="contact-icon">📱</span><span className="contact-value">0906-927-9485</span></a>
+          <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="contact-card"><span className="contact-icon">💼</span><span className="contact-value">LinkedIn</span></a>
+          <div className="contact-card"><span className="contact-icon">📍</span><span className="contact-value">Muntinlupa, Metro Manila</span></div>
         </div>
       </Section>
 
       <footer className="footer">
         <p>© {new Date().getFullYear()} Joselin T. Macayanan</p>
       </footer>
+    </>
+  );
+}
+
+export default function App() {
+  const [scrolled, setScrolled] = useState(false);
+  const [dark, setDark] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : false;
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <div className="portfolio">
+    <div id="top" className="dash">
+      <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
+        <a href="#top" className="nav-logo">JM</a>
+        <div className="nav-links">
+          <a href="#top">Summary</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button className="theme-toggle" onClick={() => setDark(!dark)} aria-label="Toggle theme">
+          {dark ? "☀️" : "🌙"}
+        </button>
+      </nav>
+
+      <main className="summary">
+        <div className="hero-avatar"><img src="/my_pic.jpg" alt="Joselin T. Macayanan" /></div>
+        <h1>Joselin T. Macayanan</h1>
+        <p className="summary-desc">
+          I build and manage cloud infrastructure on cloud computing platforms while delivering full-stack web applications.
+          8+ years shipping production systems across cloud, backend, and frontend.
+        </p>
+        <ol className="career">
+          {experienceSummary.map((job, i) => (
+            <li key={job.company} className="career-step">
+              {i > 0 && <span className="career-arrow" aria-hidden="true" />}
+              <div className="career-item">
+                <span className="career-logo">
+                  <img src={job.logo} alt={`${job.company} logo`} style={job.logoZoom ? { transform: `scale(${job.logoZoom})` } : undefined} />
+                </span>
+                <span className="career-name">{job.company}</span>
+                <span className="career-role">{job.role}</span>
+                <span className="career-years">{job.period}</span>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <a className="cert-standalone" href={CREDLY} target="_blank" rel="noopener noreferrer" aria-label="AWS Certified Cloud Practitioner (CLF-C02) on Credly">
+          <img src="/aws-cloud-practitioner.png" alt="AWS Certified Cloud Practitioner CLF-C02" />
+        </a>
+      </main>
+
+      <div className="hero-dock">
+          <div className="cta-bar">
+            <a href={`mailto:${EMAIL}`} className="cta cta-primary">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>
+              Contact Me
+            </a>
+            <a href="/joselin_macayanan_resume.pdf" download className="cta cta-secondary">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              Download Resume
+            </a>
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="cta cta-icon" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zm7 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+          <a href="#skills" className="scroll-hint">
+            <span>Scroll for full details</span>
+            <span className="scroll-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </span>
+          </a>
+      </div>
+
+    </div>
+    <FullDetails />
     </div>
   );
 }
